@@ -4,14 +4,13 @@
 # malb/lattice-estimator at HEAD. This is appropriate for users who want to use
 # malb/lattice-estimator but do not want to set up a local development
 # environment.
-FROM sagemath/sagemath:latest
+FROM ubuntu:23.10
 
-user root
 RUN apt update && apt upgrade -y
-RUN apt install -y git
+RUN apt install -y git sagemath python3-pip
 
 RUN git clone https://github.com/malb/lattice-estimator.git /lattice-estimator
 WORKDIR /lattice-estimator
 
-RUN sage -pip install -r /lattice-estimator/requirements.txt
+RUN sage --pip install --break-system-packages -r /lattice-estimator/requirements.txt
 CMD ["sage"]
